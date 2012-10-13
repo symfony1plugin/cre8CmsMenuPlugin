@@ -1,0 +1,10 @@
+cre8ContentType:
+  cre8CmsPage:
+    name:              cre8CmsPage
+    description:       The page content type is the default content type for CMS
+    label:             Page
+    plugin_name:       cre8CmsPagePlugin
+    default_path:      '/pages/:slug'
+    template:          default_view
+    slug:              page
+  

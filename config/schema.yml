@@ -1,0 +1,57 @@
+connection:           propel
+defaultIdMethod:      native
+package:              plugins.cre8CmsMenuPlugin.lib.model
+
+classes:
+
+  cre8MenuItem:
+    propel_behaviors:
+      nested_set:
+        left_column:    left
+        right_column:   right
+        level_column:   tree_level
+      soft_delete:      ~
+      sluggable:        ~
+    columns:
+      id:             ~
+      left:           { type: integer }
+      right:          { type: integer }
+      tree_level:     { type: integer }
+      label:          { type: varchar(255), required: true, primaryString: true }
+      custom_path:    { type: varchar(255) }
+      content_id:     { type: integer, foreignClass: cre8Content, foreignReference: id, onDelete: setnull }
+      is_primary:     { type: boolean, default: 0 }
+      date_published: { type: timestamp }
+
+
+  cre8ContentType:
+    columns:
+      id:            ~
+      name:          { type: varchar(128), required: true }
+      description:   { type: longvarchar }
+      label:         { type: varchar(128), required: true, primaryString: true }
+      plugin_name:   { type: varchar(128), required: true }
+      default_path:  { type: varchar(255), required: true }
+      theme:         { type: varchar(128) }
+      template:      { type: varchar(128) }
+      module:        { type: varchar(128) }
+      action:        { type: varchar(128) }
+      slug:          { type: varchar(128), required: true }
+
+  cre8Content:
+    propel_behaviors:
+      timestampable:    ~
+    columns:
+      id:               ~
+      content_type_id:  { type: integer, required: true, foreignClass: cre8ContentType, foreignReference: id, onDelete: cascade }
+      date_published:   { type: timestamp }
+      custom_path:      { type: varchar(255) }
+      theme:            { type: varchar(255) }
+      template:         { type: varchar(255) }
+      module:           { type: varchar(255) }
+      action:           { type: varchar(255) }
+      page_title:       { type: varchar(255) }
+      meta_keywords:    { type: varchar(255) }
+      meta_description: { type: varchar(255) }
+      slug:             { type: varchar(255) }
+
